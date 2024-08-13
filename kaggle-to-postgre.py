@@ -34,8 +34,9 @@ def load_csv_to_dataframe(csv_file):
         raise FileNotFoundError(f"The file {csv_file} does not exist. Please check the file path.")
     return pd.read_csv(csv_file)
 
-def import_data_to_postgres(df, db_url, table_name):
+def import_data_to_postgres(df, user, password, host, port, dbname, table_name):
     """Import DataFrame to PostgreSQL database."""
+    db_url = f'postgresql://{user}:{password}@{host}:{port}/{dbname}'
     engine = create_engine(db_url)
     df.to_sql(table_name, engine, if_exists='replace', index=False)
 
@@ -45,8 +46,13 @@ def main():
     dataset_owner = input("Enter Kaggle dataset owner username: ")
     dataset_name = input("Enter dataset name: ")
     data_dir = input("Enter repository to save the data (ex, 'data'): ")
-    db_url = input("Enter PostgreSQL URL for connection (ex, 'postgresql://user:password@host:port/dbname'): ")
-    table_name = input("Enter Postgre table name: ")
+    
+    user = input("Enter PostgreSQL username: ")
+    password = input("Enter PostgreSQL password: ")
+    host = input("Enter PostgreSQL host: ")
+    port = input("Enter PostgreSQL port: ")
+    dbname = input("Enter PostgreSQL database name: ")
+    table_name = input("Enter PostgreSQL table name: ")
 
     authenticate_kaggle(kaggle_username, kaggle_key)
     
@@ -63,7 +69,7 @@ def main():
     df = load_csv_to_dataframe(csv_file)
     
     print(f"Importing data into table '{table_name}'...")
-    import_data_to_postgres(df, db_url, table_name)
+    import_data_to_postgres(df, user, password, host, port, dbname, table_name)
     
     print(f"Data successfully imported into the '{table_name}' table in the PostgreSQL database.")
 
