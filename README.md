@@ -27,8 +27,14 @@ The Python script kaggle-to-postgre.py will prompt you to enter the following in
 3. Dataset Owner: The owner of the dataset you want to download from Kaggle.
 4. Dataset Name: The name of the dataset you wish to download.
 5. Data Directory: The directory where the dataset will be saved.
-6. PostgreSQL URL: The connection string for your PostgreSQL database (e.g., postgresql://user:password@host:port/dbname).
-7. Table Name: The name of the table in which the data will be imported.
+7. PostgreSQL username: Username that will create table (don't forget to give this user permissions).
+9. PostgreSQL password: Password for the previous mentioned user.
+10. Host: The host or IP address where your PostgreSQL located.
+11. Port: Port of the PostgreSQL.
+12. Dname: Name of the database where table will be located and stored.
+13. Table Name: The name of the table in which the data will be imported.
 ## Acknowledgments
 1. [Kaggle]('https://www.kaggle.com/') for providing the datasets.
 2. [PostgreSQL]('https://www.postgresql.org/') for the database management system.
+## Fork Updates
+1. PostgreSQL URL is formed by the user custom parameters with no necessity to generate it on your own.
